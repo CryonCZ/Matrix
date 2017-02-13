@@ -14,7 +14,7 @@ namespace ConsoleApplication3
 {
     class Program
     {
-        public static List<Matice> posledni_vysledky=new List<Matice>();
+        public static List<Matice> posledni_vysledky=new List<Matice>(); //list s posledními maticemi 
         public static string[] Operace = 
             {"uložit vlastní matici",
             "získat determinant matice",
@@ -24,7 +24,7 @@ namespace ConsoleApplication3
             "součin matic",
             "získat submatici",
             "výpočet kořenů soustavy lineárních rovnic o n neznámých",
-        "zobrazit všechny uložené matice"};
+        "zobrazit všechny uložené matice"};// konstantni pole názvů operací
         public static char[] pismena = { 'a', 'á', 'b', 'c', 'č', 'd', 'ď', 'e', 'é', 'ě', 'f', 'g', 'h', 'i', 'í', 'j', 'k', 'l', 'm', 'n', 'ň', 'o', 'ó', 'p', 'q', 'r', 'ř', 's', 'š', 't', 'ť', 'u', 'ú', 'ů', 'v', 'w', 'x', 'y', 'ý', 'z', 'ž' };
         public static char[] cislice = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         private static int getKey(string source) {
@@ -36,19 +36,10 @@ namespace ConsoleApplication3
                 Console.WriteLine("\nŠpatný formát vstupu");
                 result = -1;
             }
-            return result; }
-        public static string[,] prohodBunkyRadek(string[,] pole,int radek) {
-            string[,] pole1 = new string[pole.GetLength(0),pole.GetLength(1)];
-            Random rnd = new Random(257);
-            Random rnd1 = new Random(501);
-            int a = rnd.Next(-1, pole.GetLength(0)-1);
-            int b = rnd1.Next(-1, pole.GetLength(0)-1);
-            string temp = pole[radek,a];
-            pole1[radek, a] = pole[radek, b];
-            pole1[radek, b] = temp;
-            return pole1;
-        }
+            return result; }//získání klávesy
+       
         public static TOutput[,] ConvertAll<TInput, TOutput>(TInput[,] array, Converter<TInput, TOutput> converter)
+            //konvertování dvojrozměrného pole
     {
         if (array == null)
         {
@@ -68,18 +59,18 @@ namespace ConsoleApplication3
         }
         return localArray;
     }
-        static void SwapElements(string[,] array, int x1,int y1,int x2,int y2)
+        static void SwapElements(string[,] array, int x1,int y1,int x2,int y2) //výměna dvou elementů v dvojrozměrném poli
         {
             string temp = array[x1,y1]; // Copy the first position's element
             array[x1,y1] = array[x2,y2]; // Assign to the second element
             array[x2,y2] = temp; // Assign to the first element
         }
-        public struct GetArrays {
+        public struct GetArrays { //struktura pro levou a pravou stranu soustavy linearnich rovnic
             public string[,] left;
             public string[,] right;
 
         }
-        public static bool ContainsValue(char[] arr, string zdroj)
+        public static bool ContainsValue(char[] arr, string zdroj) // vrací true jestliže je ve zdroji alespoň jeden znak z pole arr
         {
             bool boo=false;
             foreach (char k in arr) {
@@ -89,7 +80,8 @@ namespace ConsoleApplication3
                 }
             }
             return boo; }
-        public static string[,] DeleteLetters(string[,] pole) {
+        public static string[,] DeleteLetters(string[,] pole) //vymaže všechny písmena z dvojrozměrného pole 
+        {
             for (int a =0;a<pole.GetLength(0);a++) {
                 for (int b=0;b<pole.GetLength(1);b++) {
                     if (ContainsValue(pismena, pole[a, b])) {
@@ -101,7 +93,8 @@ namespace ConsoleApplication3
                     } } }
             return pole;
         }
-        public static GetArrays GetLeftAndRightArray(string[] pole,int n) {
+        public static GetArrays GetLeftAndRightArray(string[] pole,int n)//získá levou a pravou stranu soustavy rovnic
+        {
             string[,] vlevo = new string[n, n];
             string[,] vpravo = new string[n, 1];
             int count = 0;
@@ -158,7 +151,7 @@ namespace ConsoleApplication3
             right = vpravo};
             return result; 
         }
-        public static string[,] ReplaceBadCharacters(string[,] pole)
+        public static string[,] ReplaceBadCharacters(string[,] pole)//nahrazení - a + členu 1 nebo -1
         {
             string znamenko = "";
             string[,] vlevo = pole;
